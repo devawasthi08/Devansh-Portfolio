@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Devansh Awasthi · AI-Native Engineer</title>
+  <meta name="description" content="Devansh Awasthi, AI-native engineer and full-stack developer in Noida. React, Next.js, Node.js, PostgreSQL.">
+
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:title" content="Devansh Awasthi · AI-Native Engineer">
+  <meta property="og:description" content="Full-stack developer in Noida. React, Next.js, Node.js, PostgreSQL, and AI-native workflows.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛴%3C/text%3E%3C/svg%3E">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Primary Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Preloader Screen -->
+  <div id="pl" aria-hidden="true">
+    <svg id="pls" viewBox="0 0 100 100"></svg>
+    <b class="d" id="pn">0</b>
+    <span>Devansh Awasthi, loading</span>
+  </div>
+
+  <!-- Custom Cursor Elements -->
+  <div id="cd"></div>
+  <div id="cr"><span></span></div>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="bar" id="bar"></div>
+
+  <!-- Top Navigation Bar -->
+  <nav>
+    <a class="d" href="#top">DA</a>
+    <div>
+      <a href="#ride" data-p=".02">About</a>
+      <a href="#ride" data-p=".43">Work</a>
+      <a class="hm" href="#ride" data-p=".68">Skills</a>
+      <a href="#ride" data-p="1">Contact</a>
+      <button id="thm" aria-label="Toggle day and night">☾</button>
+      <button id="kb" aria-label="Open command menu">Ctrl K</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section (Photo Split & AI Lens) -->
+  <header class="hero" id="top">
+    <div class="stk">
+      <div class="blu" id="blu"></div>
+      <div class="pic" id="pic">
+        <img id="i1" alt="Devansh Awasthi in a navy blazer">
+        <div class="ai" id="ai">
+          <img id="i2" alt="">
+          <div class="tint"></div>
+          <div class="grid"></div>
+          <svg id="mesh" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+          <div class="scan"></div>
+          <pre class="code" id="code"></pre>
+          <span class="tg" style="left:62%;top:11%">React</span>
+          <span class="tg" style="left:70%;top:24%">Node.js</span>
+          <span class="tg" style="left:73%;top:39%">AI agents</span>
+          <span class="tg" style="left:60%;top:47%">PostgreSQL</span>
+        </div>
+        <div class="lens" id="lens">
+          <img id="i3" alt="">
+          <div class="tint"></div>
+          <div class="grid"></div>
+        </div>
+        <div class="lr" id="lr"></div>
+        <div class="sw" id="sw"></div>
+      </div>
+      <div class="vig"></div>
+      <div class="spot" id="spot"></div>
+      <p class="role d">AI-native engineer building full-stack products.</p>
+      <span class="pill">Open to work</span>
+      <p class="cap l d">Human craft</p>
+      <p class="cap r d">AI speed</p>
+      <h1 class="d" aria-label="Devansh Awasthi">
+        <span><em>Devansh</em></span>
+        <span><em>Awasthi</em></span>
+      </h1>
+      <span class="scroll" id="scr">Hover my face, then scroll ↓</span>
+    </div>
+  </header>
+
+  <!-- Interactive Scooter Ride Section -->
+  <div class="ride" id="ride">
+    <div class="stage" id="stage">
+      <!-- Sky & Atmospheric Elements -->
+      <div class="stars" id="stars"></div>
+      <div class="moon" id="moon"></div>
+      <div class="dawn"></div>
+      <div class="orb" id="orb"></div>
+      <svg class="sky2" id="sky2" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+        <g class="cd"><ellipse cx="120" cy="80" rx="110" ry="26"/><ellipse cx="190" cy="62" rx="70" ry="28"/></g>
+        <g class="cd"><ellipse cx="120" cy="60" rx="90" ry="22"/><ellipse cx="60" cy="48" rx="50" ry="22"/></g>
+        <g class="cd"><ellipse cx="140" cy="70" rx="120" ry="24"/><ellipse cx="220" cy="54" rx="60" ry="24"/></g>
+        <g class="cd"><ellipse cx="100" cy="66" rx="80" ry="20"/></g>
+        <path class="bi" d="M0 0q8-10 16 0q8-10 16 0"/>
+        <path class="bi" d="M0 0q8-10 16 0q8-10 16 0"/>
+        <path class="bi" d="M0 0q8-10 16 0q8-10 16 0"/>
+        <path class="bi" d="M0 0q8-10 16 0q8-10 16 0"/>
+      </svg>
+
+      <!-- Parallax Skyline Layers -->
+      <div class="lay" id="far"><svg viewBox="0 0 6000 300" preserveAspectRatio="none"></svg></div>
+      <div class="lay" id="near"><svg viewBox="0 0 6000 300" preserveAspectRatio="none"></svg></div>
+
+      <!-- Interactive SVG World (Road, Buildings, Scooter) -->
+      <div id="world">
+        <svg viewBox="0 0 8200 720">
+          <defs>
+            <radialGradient id="lg">
+              <stop offset="0" stop-color="#ffe9a8" stop-opacity=".9"/>
+              <stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="hlg" x1="0" x2="1">
+              <stop offset="0" stop-color="#fff6c8" stop-opacity=".85"/>
+              <stop offset="1" stop-color="#fff6c8" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path class="rd" stroke="#0d0b1f" stroke-width="70" fill="none"/>
+          <path class="rd" stroke="#ffe066" stroke-width="3" stroke-dasharray="26 30" fill="none" transform="translate(0,2)"/>
+          <g id="blds"></g>
+          <g id="lamps"></g>
+          <g id="signs"></g>
+          <g id="sc">
+            <g transform="scale(1.5)">
+              <path id="hl" d="M32-72L340-140L340-4Z" fill="url(#hlg)" style="opacity:0"/>
+              <circle cx="30" cy="-72" r="3.2" fill="#fff6c8"/>
+              <g transform="translate(-34,-14)">
+                <g class="sp">
+                  <circle r="14" fill="#0d0b1f" stroke="#f5f2ff" stroke-width="3"/>
+                  <path d="M-14 0H14M0-14V14" stroke="#ffe066" stroke-width="2"/>
+                </g>
+              </g>
+              <g transform="translate(34,-14)">
+                <g class="sp">
+                  <circle r="14" fill="#0d0b1f" stroke="#f5f2ff" stroke-width="3"/>
+                  <path d="M-14 0H14M0-14V14" stroke="#ffe066" stroke-width="2"/>
+                </g>
+              </g>
+              <rect x="-38" y="-27" width="64" height="7" rx="3.5" fill="#ffe066"/>
+              <path d="M34-14L24-72M16-74H32" stroke="#f5f2ff" stroke-width="4" stroke-linecap="round" fill="none"/>
+              <path d="M-5-27L-4-50M6-27L6-50" stroke="#7b8cff" stroke-width="8" stroke-linecap="round"/>
+              <rect x="-18" y="-70" width="10" height="20" rx="4" fill="#ffb347"/>
+              <rect x="-10" y="-74" width="22" height="28" rx="9" fill="#ff5c8a"/>
+              <path id="arm" d="M6-66L24-72" stroke="#f1c27d" stroke-width="6" stroke-linecap="round"/>
+              <path id="wv" d="M6-66L20-94" stroke="#f1c27d" stroke-width="6" stroke-linecap="round" style="display:none"/>
+              <circle cx="1" cy="-88" r="12" fill="#f1c27d"/>
+              <path d="M-11-90a12 12 0 0 1 24 0z" fill="#2a2bff"/>
+              <path d="M8-91h12" stroke="#2a2bff" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="6" cy="-87" r="1.6" fill="#222"/>
+              <path d="M4-82q3 2 6 0" stroke="#7a4a2a" stroke-width="1.5" fill="none"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Intro Words & Headline Stats -->
+      <div class="intro" id="intro">
+        <p class="big d" id="big">I’m Devansh, an AI-native engineer in Noida with 2 years of full-stack experience: enterprise CRM modules, REST APIs and data-driven dashboards. I pair AI coding agents with scoped, analyse-first prompts to find root causes, ship minimal fixes and verify results.</p>
+        <div class="stats" id="stats">
+          <div><b class="d">2 yrs</b><span>Full-stack at NovoStack</span></div>
+          <div><b class="d">3</b><span>Products on this ride</span></div>
+          <div><b class="d">8.18</b><span>MCA CGPA, PSIT College, 2025</span></div>
+        </div>
+      </div>
+
+      <!-- Interactive Story Cards -->
+      <div class="info">
+        <!-- Card 1: Experience -->
+        <article class="card" style="--bg:#f5f2ff;--fg:#0d0b1f">
+          <div>
+            <span class="n">01 · Experience</span>
+            <h3>NovoStack</h3>
+            <div class="t">Full Stack Developer · Noida · 2 years (present)</div>
+            <ul>
+              <li>Build and maintain enterprise CRM modules and dashboards in React.js and Next.js, with reusable components and centralised shared table logic.</li>
+              <li>Integrate REST APIs and implement filters, search, KPI views, reporting workflows and dynamic data rendering for data-heavy screens.</li>
+              <li>Deliver role- and permission-driven interfaces; troubleshoot production issues and optimise frontend performance.</li>
+              <li>Collaborate with backend, QA and product teams.</li>
+            </ul>
+            <i>React.js</i>
+            <i>Next.js</i>
+            <i>REST APIs</i>
+          </div>
+        </article>
+
+        <!-- Card 2: Zyng Parks -->
+        <article class="card w" style="--bg:#ff5c8a;--fg:#0d0b1f">
+          <div>
+            <span class="n">02 · Project</span>
+            <h3>Zyng Parks</h3>
+            <div class="t">Parks, ticketing and parking management platform</div>
+            <ul>
+              <li>Worked on parking workflows and API integration for vehicle types, pricing modes (hourly, per-day, duration slabs) and parking sessions.</li>
+              <li>Contributed to backend APIs and CRM modules (parks management, packages, entry ticketing, slots), connecting frontend workflows with structured API responses.</li>
+            </ul>
+            <i>React.js</i>
+            <i>Node.js/Express</i>
+            <i>PostgreSQL</i>
+          </div>
+          <div class="shot">
+            <div class="sf">
+              <img data-s="za" alt="Zyng Parks analytics dashboard">
+              <img data-s="ze" alt="Zyng Parks entry tickets screen">
+              <img data-s="zl" alt="Zyng Parks login">
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: Direct Credit CRM -->
+        <article class="card w" style="--bg:#ffe066;--fg:#0d0b1f">
+          <div>
+            <span class="n">03 · Project</span>
+            <h3>Direct Credit CRM</h3>
+            <div class="t">CRM for Direct Credit, The MSME Experts</div>
+            <ul>
+              <li>Developed CRM dashboard features for leads, users, KPI reporting, filters, search and data-heavy listing pages.</li>
+              <li>Built reusable components, integrated APIs and supported permission-driven workflows.</li>
+            </ul>
+            <i>React.js</i>
+            <i>Next.js</i>
+            <i>TypeScript</i>
+            <i>PostgreSQL</i>
+          </div>
+          <div class="shot">
+            <div class="sf one">
+              <img data-s="dc" alt="Direct Credit CRM sign-in">
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: IIT Kanpur Drone Centre -->
+        <article class="card w" style="--bg:#0d0b1f;--fg:#f5f2ff">
+          <div>
+            <span class="n">04 · Project</span>
+            <h3>IIT Kanpur Drone Centre</h3>
+            <div class="t">Official Centre of Excellence website</div>
+            <ul>
+              <li>Contributed to responsive frontend development, UI implementation and optimisation.</li>
+            </ul>
+            <i>React.js</i>
+            <i>Next.js</i>
+            <i>HTML5</i>
+            <i>CSS3</i>
+            <br>
+            <a class="lk" style="color:#ffe066" href="https://dronecoeiitk.com" target="_blank" rel="noopener">Visit dronecoeiitk.com ↗</a>
+          </div>
+          <div class="shot">
+            <div class="sf two">
+              <img data-s="d1" alt="Drone CoE website hero">
+              <img data-s="d2" alt="Drone CoE partners section">
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5: Skills Stack -->
+        <article class="card" style="--bg:#f5f2ff;--fg:#0d0b1f">
+          <div>
+            <span class="n">05 · Skills</span>
+            <h3>Stack</h3>
+          </div>
+          <div class="sk">
+            <div>
+              <h4>AI-native engineering</h4>
+              <p>AI-assisted development (Cursor, Antigravity, Claude), Generative AI and LLM fundamentals, scoped analyse-first prompting</p>
+            </div>
+            <div>
+              <h4>AI harness engineering</h4>
+              <p>Tool/API orchestration, prompt and context management, structured outputs, guardrails, evaluation workflows</p>
+            </div>
+            <div>
+              <h4>Frontend</h4>
+              <p>React.js, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SCSS, CSS Modules, responsive design, reusable components</p>
+            </div>
+            <div>
+              <h4>Backend and APIs</h4>
+              <p>Node.js, Express.js, REST API development and integration, JSON, Fetch API, Axios, Postman</p>
+            </div>
+            <div>
+              <h4>Data and tools</h4>
+              <p>PostgreSQL, MySQL, Git, GitHub, VS Code, Vercel; Power BI and Tableau (certified)</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6: Workflow -->
+        <article class="card" style="--bg:#ff5c8a;--fg:#0d0b1f">
+          <div>
+            <span class="n">06 · Workflow</span>
+            <h3>How I ship</h3>
+            <div class="t">AI-native engineering with harness thinking</div>
+            <ul>
+              <li>Pair AI coding agents (Cursor, Antigravity, Claude) with tightly scoped, analyse-first prompts.</li>
+              <li>Apply AI harness engineering: tool orchestration, structured outputs, guardrails and evaluation.</li>
+              <li>Confirm root causes, apply minimal changes and validate behaviour across bug-fix batches and feature work.</li>
+            </ul>
+            <i>Analyse first</i>
+            <i>Minimal change</i>
+            <i>Verify</i>
+          </div>
+        </article>
+
+        <!-- Card 7: Education -->
+        <article class="card" style="--bg:#ffe066;--fg:#0d0b1f">
+          <div>
+            <span class="n">07 · Education</span>
+            <h3>Education and certifications</h3>
+          </div>
+          <div class="sk">
+            <div>
+              <h4>MCA · PSIT College (AKTU)</h4>
+              <p>CGPA 8.18 · 2025</p>
+            </div>
+            <div>
+              <h4>Bachelor’s degree · PSIT College</h4>
+              <p>CGPA 8.9 · 2023</p>
+            </div>
+            <div>
+              <h4>Class XII · Gulmohar Public School</h4>
+              <p>2019</p>
+            </div>
+            <div>
+              <h4>Class X · Gulmohar Public School</h4>
+              <p>CGPA 9.8 · 2017</p>
+            </div>
+            <div>
+              <h4>Certifications</h4>
+              <p>Power BI Certification, Tableau Certification</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Scrolling Tip -->
+      <div class="tip" id="tip">Keep scrolling to keep riding</div>
+
+      <!-- Finale / Contact Screen -->
+      <div class="fin" id="fin">
+        <h2 class="d">Let’s talk.</h2>
+        <p>Open to full-stack and AI-focused engineering roles. Based in Noida, India.</p>
+        <div class="row">
+          <a class="btn dk mag" href="mailto:devanshawasthi0502314@gmail.com">Email me</a>
+          <a class="btn o mag" href="https://linkedin.com/in/devansh-a-94179022a" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn o mag" href="https://github.com/devawasthi08" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn o mag" id="rsm" href="#">Résumé</a>
+        </div>
+        <div class="meta">
+          <a href="mailto:devanshawasthi0502314@gmail.com">devanshawasthi0502314@gmail.com</a>
+          <a href="tel:+919450001405">+91 94500 01405</a>
+        </div>
+      </div>
+
+      <!-- Atmospheric Overlays & Letterbox -->
+      <div class="spd" id="spd"></div>
+      <div class="vg"></div>
+      <div class="grain"></div>
+      <div class="lb t" id="lbt"></div>
+      <div class="lb b" id="lbb"></div>
+    </div>
+  </div>
+
+  <!-- Chapters Indicator -->
+  <div class="ch" id="ch" aria-label="Chapters"></div>
+
+  <!-- Ambient Sound Toggle -->
+  <button id="snd" class="fl" aria-pressed="false">Sound off</button>
+
+  <!-- Command Palette Modal (Ctrl+K) -->
+  <div id="cp" class="md" hidden>
+    <div class="bx">
+      <input id="cpi" placeholder="Type a command or search…" aria-label="Command" autocomplete="off">
+      <ul id="cpl"></ul>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal for Screenshots -->
+  <div id="lbx" class="md" hidden>
+    <button id="lbp" aria-label="Previous">‹</button>
+    <img id="lbi" alt="">
+    <button id="lbn" aria-label="Next">›</button>
+    <p id="lbc"></p>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" role="status"></div>
+
+  <!-- Application Logic -->
+  <script src="js/main.js"></script>
+</body>
+</html>
