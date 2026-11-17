@@ -35,6 +35,8 @@ yarn-error.log*
 
 # In case dependencies or build output are added later
 node_modules/
+.next/
+out/
 .env
 .env.local
 .env.*.local

@@ -43,12 +43,12 @@ html {
 body {
   background: var(--blue);
   color: #fff;
-  font: 400 18px / 1.6 'Hanken Grotesk', system-ui, sans-serif;
+  font: 400 18px / 1.6 var(--font-hanken), 'Hanken Grotesk', system-ui, sans-serif;
   overflow-x: hidden;
 }
 
 .d {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-bricolage), 'Bricolage Grotesque', sans-serif;
   font-weight: 800;
   letter-spacing: -0.045em;
 }
