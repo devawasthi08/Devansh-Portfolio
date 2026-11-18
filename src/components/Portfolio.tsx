@@ -71,51 +71,19 @@ export default function Portfolio() {
     let lensR = 0;
     const spot = $("#spot");
 
-    let onPointerMove: any, onPointerDown: any, onPointerOver: any;
+    let onPointerMove: any, onPointerDown: any;
 
     if (window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
-      const dot = $("#cd");
-      const ring = $("#cr");
-      const rl2 = ring?.firstElementChild as HTMLElement;
-      let x = 0, y = 0, rx = 0, ry = 0;
-
-      if (!reduce) document.body.classList.add("cur");
-
       onPointerMove = (e: PointerEvent) => {
-        x = e.clientX;
-        y = e.clientY;
         hasPtr = true;
-        mxp = x / window.innerWidth - 0.5;
-        myp = y / window.innerHeight - 0.5;
-        if (dot) dot.style.transform = `translate(${x}px,${y}px)`;
+        mxp = e.clientX / window.innerWidth - 0.5;
+        myp = e.clientY / window.innerHeight - 0.5;
         if (spot) {
-          spot.style.setProperty("--sx", `${x}px`);
-          spot.style.setProperty("--sy", `${y}px`);
+          spot.style.setProperty("--sx", `${e.clientX}px`);
+          spot.style.setProperty("--sy", `${e.clientY}px`);
         }
       };
       window.addEventListener("pointermove", onPointerMove);
-
-      const renderCursor = () => {
-        rx += (x - rx) * 0.18;
-        ry += (y - ry) * 0.18;
-        if (ring) ring.style.transform = `translate(${rx}px,${ry}px)`;
-        cursorRaf = requestAnimationFrame(renderCursor);
-      };
-      let cursorRaf = requestAnimationFrame(renderCursor);
-
-      onPointerOver = (e: MouseEvent) => {
-        const targetCur = (e.target as HTMLElement)?.closest?.("[data-cur]") as HTMLElement;
-        if (ring) {
-          if (targetCur) {
-            ring.className = "lab";
-            if (rl2) rl2.textContent = targetCur.dataset.cur || "";
-          } else {
-            ring.className = (e.target as HTMLElement)?.closest?.("a,label,button,li") ? "big" : "";
-            if (rl2) rl2.textContent = "";
-          }
-        }
-      };
-      document.addEventListener("pointerover", onPointerOver);
 
       onPointerDown = (e: PointerEvent) => {
         if (reduce) return;
@@ -124,7 +92,7 @@ export default function Portfolio() {
         ripple.style.left = `${e.clientX}px`;
         ripple.style.top = `${e.clientY}px`;
         document.body.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 650);
+        setTimeout(() => ripple.remove(), 600);
       };
       window.addEventListener("pointerdown", onPointerDown);
 
@@ -269,16 +237,24 @@ export default function Portfolio() {
     const ws = big?.querySelectorAll("span") || [];
 
     // --- 4. World Road & Skyline ---
-    const W = 8200;
+    // --- 4. World Road & Skyline ---
+    const W = 12000;
     const Y = (x: number) => 520 + Math.sin(x / 420) * 35;
-    let roadPath = `M-900,${Y(-900)}`;
-    for (let x2 = -860; x2 <= W; x2 += 40) roadPath += ` L${x2},${Y(x2)}`;
-    document.querySelectorAll(".rd").forEach((p) => p.setAttribute("d", roadPath));
+    let roadPath = `M-1200,${Y(-1200)}`;
+    for (let x2 = -1160; x2 <= W; x2 += 40) roadPath += ` L${x2},${Y(x2)}`;
+
+    let dashPath = `M-1200,${Y(-1200)}`;
+    for (let x2 = -1160; x2 <= 7300; x2 += 40) dashPath += ` L${x2},${Y(x2)}`;
+
+    const rdBase = $("#rd-base");
+    const rdLine = $("#rd-line");
+    if (rdBase) rdBase.setAttribute("d", roadPath);
+    if (rdLine) rdLine.setAttribute("d", dashPath);
 
     function generateCity(selector: string, hmin: number, hmax: number, fill: string, glow: number) {
       let s = "";
       let x = 0;
-      while (x < 6000) {
+      while (x < 12000) {
         const bw = 40 + Math.random() * 90;
         const bh = hmin + Math.random() * (hmax - hmin);
         s += `<rect x="${x}" y="${300 - bh}" width="${bw}" height="${bh}" fill="${fill}"/>`;
@@ -308,7 +284,7 @@ export default function Portfolio() {
     const nm = ["NovoStack", "Zyng Parks", "Direct Credit", "IIT Kanpur Drone", "Skills", "How I ship", "Education"];
     let signsHtml = "";
 
-    [[250, "Noida"], [7300, "Your team"]].concat(stops.map((x, i) => [x, nm[i]])).forEach((s: any) => {
+    [[250, "Noida"]].concat(stops.map((x, i) => [x, nm[i]])).forEach((s: any) => {
       const width = Math.max(110, s[1].length * 14);
       signsHtml += `<g transform="translate(${s[0]},${Y(s[0]) - 35})">
         <rect x="-3" y="-120" width="6" height="120" fill="#f5f2ff"/>
@@ -316,6 +292,63 @@ export default function Portfolio() {
         <text x="0" y="-138" fill="#0d0b1f" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="21" text-anchor="middle">${s[1]}</text>
       </g>`;
     });
+
+    // Grand Checkered Finish Line & Victory Arch at x = 7300
+    const endY = Y(7300);
+    let checkers = `<rect x="-14" y="-35" width="28" height="70" fill="#0d0b1f"/>`;
+    for (let r = 0; r < 10; r++) {
+      const cy = -35 + r * 7;
+      if (r % 2 === 0) {
+        checkers += `<rect x="-14" y="${cy}" width="14" height="7" fill="#ffffff"/>`;
+        checkers += `<rect x="0" y="${cy}" width="14" height="7" fill="#0d0b1f"/>`;
+      } else {
+        checkers += `<rect x="-14" y="${cy}" width="14" height="7" fill="#0d0b1f"/>`;
+        checkers += `<rect x="0" y="${cy}" width="14" height="7" fill="#ffffff"/>`;
+      }
+    }
+
+    signsHtml += `<g transform="translate(7300,${endY})">
+      <!-- Asphalt Arrival Platform extending seamlessly -->
+      <path d="M14,-35 L520,-35 C550,-35 550,35 520,35 L14,35 Z" fill="#0d0b1f"/>
+      <line x1="14" y1="-35" x2="520" y2="-35" stroke="#ffe066" stroke-width="3" stroke-dasharray="14 14"/>
+      <line x1="14" y1="35" x2="520" y2="35" stroke="#ffe066" stroke-width="3" stroke-dasharray="14 14"/>
+      
+      <!-- Checkered Finish Line on Asphalt -->
+      ${checkers}
+
+      <!-- Grand Illuminated Victory Arch -->
+      <g>
+        <!-- Left Pylon -->
+        <rect x="-48" y="-195" width="10" height="160" fill="#14114a" stroke="#ffe066" stroke-width="2" rx="3"/>
+        <line x1="-43" y1="-195" x2="-43" y2="-35" stroke="rgba(255,255,255,0.4)" stroke-dasharray="6 6"/>
+        <circle cx="-43" cy="-35" r="4" fill="#ffe066"/>
+
+        <!-- Right Pylon -->
+        <rect x="42" y="-195" width="10" height="160" fill="#14114a" stroke="#ffe066" stroke-width="2" rx="3"/>
+        <line x1="47" y1="-195" x2="47" y2="-35" stroke="rgba(255,255,255,0.4)" stroke-dasharray="6 6"/>
+        <circle cx="47" cy="-35" r="4" fill="#ffe066"/>
+
+        <!-- Arch Overhead Truss & Banner -->
+        <rect x="-80" y="-242" width="164" height="48" rx="14" fill="#0d0b1f" stroke="#ffe066" stroke-width="2.5"/>
+        <rect x="-74" y="-236" width="152" height="36" rx="9" fill="#ffe066"/>
+        <text x="2" y="-212" fill="#0d0b1f" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="14" text-anchor="middle" letter-spacing="1">🏁 FINISH · YOUR TEAM</text>
+
+        <!-- Twin Skyward Spotlights -->
+        <polygon points="-43,-195 -130,-620 50,-620" fill="url(#lg)" opacity="0.4"/>
+        <polygon points="47,-195 -40,-620 140,-620" fill="url(#lg)" opacity="0.4"/>
+
+        <!-- Marker Beacons -->
+        <circle cx="-43" cy="-244" r="5" fill="#ffe066"/>
+        <circle cx="47" cy="-244" r="5" fill="#ffe066"/>
+
+        <!-- Confetti & Celebration Sparkles -->
+        <polygon points="-90,-130 -86,-122 -78,-120 -84,-114 -82,-106 -90,-110 -98,-106 -96,-114 -102,-120 -94,-122" fill="#ffe066" opacity="0.85"/>
+        <polygon points="90,-150 93,-144 99,-142 95,-137 96,-131 90,-134 84,-131 85,-137 81,-142 87,-144" fill="#ff7aa2" opacity="0.85"/>
+        <polygon points="-30,-260 -28,-254 -22,-252 -26,-247 -25,-241 -30,-244 -35,-241 -34,-247 -38,-252 -32,-254" fill="#7b8cff" opacity="0.85"/>
+        <polygon points="35,-265 37,-260 42,-258 38,-254 39,-249 35,-251 31,-249 32,-254 28,-258 33,-260" fill="#ffe066" opacity="0.85"/>
+      </g>
+    </g>`;
+
     const signsEl = $("#signs");
     if (signsEl) signsEl.innerHTML = signsHtml;
 
@@ -336,8 +369,6 @@ export default function Portfolio() {
     const intro = $("#intro");
     const stats = $("#stats");
     const fin = $("#fin");
-    const lbt = $("#lbt");
-    const lbb = $("#lbb");
 
     const hero = $("#top");
     const pic = $("#pic");
@@ -443,9 +474,6 @@ export default function Portfolio() {
         w.style.opacity = (0.14 + 0.86 * cl(q * (n + 4) - i, 0, 1)).toString();
       });
 
-      const lb = cl(p / 0.04, 0, 1) * (1 - cl((p - 0.93) / 0.04, 0, 1));
-      if (lbt) lbt.style.transform = `translateY(${(lb - 1) * 100}%)`;
-      if (lbb) lbb.style.transform = `translateY(${(1 - lb) * 100}%)`;
 
       const fi = cl((p - 0.93) / 0.04, 0, 1);
       if (fin) {
@@ -576,7 +604,7 @@ export default function Portfolio() {
     const lamps: any[] = [];
     const blds: any[] = [];
 
-    for (let lx = 650; lx < 8000; lx += 900) {
+    for (let lx = 650; lx < 11500; lx += 900) {
       const ly = Y(lx) - 35;
       lg += `<g data-x="${lx}">
         <rect x="${lx - 2}" y="${ly - 130}" width="4" height="130" fill="#f5f2ff" opacity=".7"/>
@@ -823,8 +851,19 @@ export default function Portfolio() {
       }
     }
 
+    const lockScroll = () => {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    };
+
+    const unlockScroll = () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    };
+
     function openCp() {
       if (cpb) cpb.hidden = false;
+      lockScroll();
       if (cpi) {
         cpi.value = "";
         cpi.focus();
@@ -835,9 +874,15 @@ export default function Portfolio() {
 
     function closeCp() {
       if (cpb) cpb.hidden = true;
+      if (lbx?.hidden !== false) unlockScroll();
     }
 
     const lbx = $("#lbx");
+
+    function closeLb() {
+      if (lbx) lbx.hidden = true;
+      if (cpb?.hidden !== false) unlockScroll();
+    }
 
     const onKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
@@ -847,7 +892,7 @@ export default function Portfolio() {
       }
       if (e.key === "Escape") {
         closeCp();
-        if (lbx) lbx.hidden = true;
+        closeLb();
       }
       if (cpb && !cpb.hidden) {
         if (e.key === "ArrowDown") {
@@ -908,6 +953,7 @@ export default function Portfolio() {
       if (lbc && lbs[lbk]) {
         lbc.textContent = `${lbs[lbk].alt} (${lbk + 1}/${lbs.length})`;
       }
+      lockScroll();
     }
 
     document.querySelectorAll(".sf").forEach((sf: any) => {
@@ -947,9 +993,49 @@ export default function Portfolio() {
 
     if (lbx) {
       lbx.onclick = (e: any) => {
-        if (e.target === lbx || e.target === lbi) lbx.hidden = true;
+        if (e.target === lbx || e.target === lbi) closeLb();
       };
     }
+
+    // Prevent wheel and touch scrolling on modals from leaking into outer page
+    const isModalOpen = () => (cpb && !cpb.hidden) || (lbx && !lbx.hidden);
+
+    const onWindowWheel = (e: WheelEvent) => {
+      if (!isModalOpen()) return;
+      if (lbx && !lbx.hidden) {
+        e.preventDefault();
+        return;
+      }
+      if (cpb && !cpb.hidden) {
+        const ul = cpb.querySelector("ul");
+        if (ul && ul.contains(e.target as Node)) {
+          const atTop = e.deltaY < 0 && ul.scrollTop <= 0;
+          const atBottom = e.deltaY > 0 && ul.scrollTop + ul.clientHeight >= ul.scrollHeight - 1;
+          if (atTop || atBottom) {
+            e.preventDefault();
+          }
+        } else {
+          e.preventDefault();
+        }
+      }
+    };
+
+    const onWindowTouchMove = (e: TouchEvent) => {
+      if (!isModalOpen()) return;
+      if (lbx && !lbx.hidden) {
+        e.preventDefault();
+        return;
+      }
+      if (cpb && !cpb.hidden) {
+        const ul = cpb.querySelector("ul");
+        if (!ul || !ul.contains(e.target as Node)) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    window.addEventListener("wheel", onWindowWheel, { passive: false });
+    window.addEventListener("touchmove", onWindowTouchMove, { passive: false });
 
     // Card Tilt & Loupe
     document.querySelectorAll(".shot").forEach((shotFrame: any) => {
@@ -1009,7 +1095,10 @@ export default function Portfolio() {
     }
 
     // Scroll Lerp Loop
-    const onScroll = () => { tg = window.scrollY; };
+    const onScroll = () => {
+      if (isModalOpen()) return;
+      tg = window.scrollY;
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
 
     let animId: number;
@@ -1039,13 +1128,15 @@ export default function Portfolio() {
 
     // Cleanup on unmount
     return () => {
+      unlockScroll();
       cancelAnimationFrame(animId);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("wheel", onWindowWheel);
+      window.removeEventListener("touchmove", onWindowTouchMove);
       window.removeEventListener("resize", fitCards);
       window.removeEventListener("keydown", onKeyDown);
       if (onPointerMove) window.removeEventListener("pointermove", onPointerMove);
       if (onPointerDown) window.removeEventListener("pointerdown", onPointerDown);
-      if (onPointerOver) document.removeEventListener("pointerover", onPointerOver);
       window.removeEventListener("pointermove", onMeshPointer);
       window.removeEventListener("pointermove", onPicMove);
     };
@@ -1059,10 +1150,6 @@ export default function Portfolio() {
         <b className="d" id="pn">0</b>
         <span>Devansh Awasthi, loading</span>
       </div>
-
-      {/* Custom Cursor Elements */}
-      <div id="cd"></div>
-      <div id="cr"><span></span></div>
 
       {/* Reading Progress Bar */}
       <div className="bar" id="bar"></div>
@@ -1116,7 +1203,7 @@ export default function Portfolio() {
             <span><em>Devansh</em></span>
             <span><em>Awasthi</em></span>
           </h1>
-          <span className="scroll" id="scr">Hover my face, then scroll ↓</span>
+          <span className="scroll" id="scr">Scroll to explore the ride ↓</span>
         </div>
       </header>
 
@@ -1138,11 +1225,11 @@ export default function Portfolio() {
             <path className="bi" d="M0 0q8-10 16 0q8-10 16 0" />
           </svg>
 
-          <div className="lay" id="far"><svg viewBox="0 0 6000 300" preserveAspectRatio="none"></svg></div>
-          <div className="lay" id="near"><svg viewBox="0 0 6000 300" preserveAspectRatio="none"></svg></div>
+          <div className="lay" id="far"><svg viewBox="0 0 12000 300" preserveAspectRatio="none"></svg></div>
+          <div className="lay" id="near"><svg viewBox="0 0 12000 300" preserveAspectRatio="none"></svg></div>
 
           <div id="world">
-            <svg viewBox="0 0 8200 720">
+            <svg viewBox="0 0 12000 720" preserveAspectRatio="none">
               <defs>
                 <radialGradient id="lg">
                   <stop offset="0" stopColor="#ffe9a8" stopOpacity=".9" />
@@ -1153,8 +1240,8 @@ export default function Portfolio() {
                   <stop offset="1" stopColor="#fff6c8" stopOpacity="0" />
                 </linearGradient>
               </defs>
-              <path className="rd" stroke="#0d0b1f" strokeWidth="70" fill="none" />
-              <path className="rd" stroke="#ffe066" strokeWidth="3" strokeDasharray="26 30" fill="none" transform="translate(0,2)" />
+              <path className="rd" id="rd-base" stroke="#0d0b1f" strokeWidth="70" fill="none" />
+              <path className="rd" id="rd-line" stroke="#ffe066" strokeWidth="3" strokeDasharray="26 30" fill="none" transform="translate(0,2)" />
               <g id="blds"></g>
               <g id="lamps"></g>
               <g id="signs"></g>
@@ -1212,14 +1299,16 @@ export default function Portfolio() {
                 <h3>NovoStack</h3>
                 <div className="t">Full Stack Developer · Noida · 2 years (present)</div>
                 <ul>
-                  <li>Build and maintain enterprise CRM modules and dashboards in React.js and Next.js, with reusable components and centralised shared table logic.</li>
-                  <li>Integrate REST APIs and implement filters, search, KPI views, reporting workflows and dynamic data rendering for data-heavy screens.</li>
-                  <li>Deliver role- and permission-driven interfaces; troubleshoot production issues and optimise frontend performance.</li>
-                  <li>Collaborate with backend, QA and product teams.</li>
+                  <li>Architected and scaled enterprise CRM modules and reporting dashboards in React.js and Next.js with centralized state and shared table abstractions.</li>
+                  <li>Engineered high-throughput filtering, debounced search, and server-driven pagination for data-dense tables handling thousands of active records.</li>
+                  <li>Implemented role- and permission-driven access control (RBAC), resolving complex state synchronization issues across nested views.</li>
+                  <li>Collaborated closely with backend engineers on REST API contracts, error boundaries, and p95 load-time optimization.</li>
                 </ul>
                 <i>React.js</i>
                 <i>Next.js</i>
+                <i>TypeScript</i>
                 <i>REST APIs</i>
+                <i>RBAC Architecture</i>
               </div>
             </article>
 
@@ -1230,12 +1319,15 @@ export default function Portfolio() {
                 <h3>Zyng Parks</h3>
                 <div className="t">Parks, ticketing and parking management platform</div>
                 <ul>
-                  <li>Worked on parking workflows and API integration for vehicle types, pricing modes (hourly, per-day, duration slabs) and parking sessions.</li>
-                  <li>Contributed to backend APIs and CRM modules (parks management, packages, entry ticketing, slots), connecting frontend workflows with structured API responses.</li>
+                  <li>Engineered core parking workflows and stateful pricing engines supporting dynamic duration slabs, vehicle categories, and automated check-in/out sessions.</li>
+                  <li>Developed asynchronous slot generation queues and transactional database queries in PostgreSQL to prevent race conditions during peak entry ticketing.</li>
+                  <li>Standardized REST API contracts and decoupled CRM service modules (parks, packages, slot capacity) for reliable multi-tenant operations.</li>
                 </ul>
                 <i>React.js</i>
                 <i>Node.js/Express</i>
                 <i>PostgreSQL</i>
+                <i>Queue Workers</i>
+                <i>ACID Transactions</i>
               </div>
               <div className="shot">
                 <div className="sf">
@@ -1253,13 +1345,15 @@ export default function Portfolio() {
                 <h3>Direct Credit CRM</h3>
                 <div className="t">CRM for Direct Credit, The MSME Experts</div>
                 <ul>
-                  <li>Developed CRM dashboard features for leads, users, KPI reporting, filters, search and data-heavy listing pages.</li>
-                  <li>Built reusable components, integrated APIs and supported permission-driven workflows.</li>
+                  <li>Engineered end-to-end CRM lead pipeline and KPI tracking modules with real-time status updates and multi-criteria querying.</li>
+                  <li>Created modular, reusable UI component libraries with strict TypeScript interfaces, accelerating team delivery and eliminating runtime type errors.</li>
+                  <li>Integrated secure authentication flows, role-based view permissions, and automated CSV/Excel reporting exports.</li>
                 </ul>
                 <i>React.js</i>
                 <i>Next.js</i>
                 <i>TypeScript</i>
                 <i>PostgreSQL</i>
+                <i>Component Architecture</i>
               </div>
               <div className="shot">
                 <div className="sf one">
@@ -1327,15 +1421,15 @@ export default function Portfolio() {
               <div>
                 <span className="n">06 · Workflow</span>
                 <h3>How I ship</h3>
-                <div className="t">AI-native engineering with harness thinking</div>
+                <div className="t">Systematic engineering meets AI-native speed</div>
                 <ul>
-                  <li>Pair AI coding agents (Cursor, Antigravity, Claude) with tightly scoped, analyse-first prompts.</li>
-                  <li>Apply AI harness engineering: tool orchestration, structured outputs, guardrails and evaluation.</li>
-                  <li>Confirm root causes, apply minimal changes and validate behaviour across bug-fix batches and feature work.</li>
+                  <li><strong>Root Cause First:</strong> Diagnose issues via logs, network traces, and DB query plans before applying focused, minimal-diff fixes.</li>
+                  <li><strong>AI-Assisted Velocity:</strong> Pair AI coding agents with strict context scoping, guardrails, and deterministic evaluation to ship features 3x faster without architectural drift.</li>
+                  <li><strong>Defensive Engineering:</strong> Validate edge cases, enforce strict type boundaries, and verify end-to-end data flows before deployment.</li>
                 </ul>
-                <i>Analyse first</i>
-                <i>Minimal change</i>
-                <i>Verify</i>
+                <i>Root cause first</i>
+                <i>Minimal diff</i>
+                <i>Production verified</i>
               </div>
             </article>
 
@@ -1392,8 +1486,6 @@ export default function Portfolio() {
           <div className="spd" id="spd"></div>
           <div className="vg"></div>
           <div className="grain"></div>
-          <div className="lb t" id="lbt"></div>
-          <div className="lb b" id="lbb"></div>
         </div>
       </div>
 
@@ -1403,8 +1495,19 @@ export default function Portfolio() {
       {/* Command Palette */}
       <div id="cp" className="md" hidden>
         <div className="bx">
-          <input id="cpi" placeholder="Type a command or search…" aria-label="Command" autoComplete="off" />
+          <div className="bx-input-wrap">
+            <svg className="bx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input id="cpi" placeholder="Type a command or search…" aria-label="Command" autoComplete="off" />
+          </div>
           <ul id="cpl"></ul>
+          <div className="bx-ft">
+            <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+            <span><kbd>↵</kbd> select</span>
+            <span><kbd>esc</kbd> close</span>
+          </div>
         </div>
       </div>
 
